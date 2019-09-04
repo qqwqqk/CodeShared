@@ -1,46 +1,39 @@
-#include<map>
-#include<set>
-#include<vector>
+#include<stdio.h>
 #include<iostream>
-#include<algorithm>
+#include<vector>
 using namespace std;
-int maxProduct(vector<int> nums){
-    long dp_min = nums[0];
-    long dp_max = nums[0];
-
-    long res = nums[0];
-    for(int i = 1; i < nums.size(); i++){
-        long n = nums[i];
-        long _dp_max = max(max(dp_max * n, dp_min * n), n);
-        long _dp_min = min(min(dp_max * n, dp_min * n), n);
-        dp_min = _dp_min;
-        dp_max = _dp_max;
-        res = max(res, dp_max);
+int splitArray(vector<int>& nums, int m) {
+    int len = nums.size();
+    vector<vector<long>> dp(len + 1,vector<long>(m + 1,INT_MAX));
+    dp[1][1] = nums[0];
+    for(int i = 2 ; i <= len;++i)
+        dp[i][1] = dp[i-1][1] + nums[i-1];
+    
+    for(int j = 2 ; j <= m ; ++j){
+        for(int k = j ; k <= len ; ++k){
+            long tmp = 0;
+            for(int l = k - 1; l >= j - 1 ;--l){
+                tmp = max(dp[l][j-1],dp[k][1] - dp[l][1]);
+                dp[k][j] = min(dp[k][j],tmp);
+            }
+        }
     }
-    return res;
+    return dp[len][m];
 }
-
-int main(){
-  string str;
-  getline(cin,str,'\n');
-
-  string cache = "";
-  int strSize = 0, strPos = 0;
-  vector<int> array;
-
-  for(int i = 0 ; i < str.size(); i++){
-    if(str[i] == ' '){
-      strSize = i - strPos;
-      cache = str.substr(strPos, strSize);
-      array.push_back(stoi(cache));
-      strPos = i+1;
-    }
-  }
-  cache = str.substr(strPos, str.size() - strPos);
-  if(cache.size()>0){ array.push_back(stoi(cache)); }
-
-  int result = maxProduct(array);
-  cout << result << endl;
-  
-  return 0;
+ 
+int main()
+{
+  vector<int> num;
+  int n,m;
+  cin >> n >> m;
+	for (int i = 0; i < m; i++)
+	{
+    int temp;
+    cin >> temp;
+    num.push_back(temp);
+	}
+  int result = splitArray(num,n);
+  cout << result <<endl;
+ 
+	return 0;
 }
