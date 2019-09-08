@@ -22,7 +22,7 @@ int main () {
   cin.get();
 
   int *lists = new int[n];
-  for(int i=0; i<n; i++){ lists[i] = n-i; }
+  for(int i=0; i<n; i++){ lists[i] = i+18; }
 
   string str;
   getline(cin,str,'\n');
@@ -45,14 +45,17 @@ int main () {
   vector<int> temp;
   int result = 0;
 
+  sort (lists,lists+n);
+  reverse (lists,lists+n);
+
   do {
     temp.clear();
-    for(int i=0; i<n; i++){
-      // cout<< lists[i]<<' ';
-      temp.push_back(lists[i]);
+    for(int i=0; i<n; i++){ temp.push_back(lists[i]); }
+    if(is_conform(array,temp)){
+      result++;
+      for(int i=0; i<n; i++){ cout<< lists[i]<<' '; } cout<<endl;
     }
-    if(is_conform(array,temp)){result++;}
-    // cout<<endl;
+    
   } while ( prev_permutation(lists,lists+n) );
 
   cout << result <<endl;
