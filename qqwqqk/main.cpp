@@ -19,7 +19,8 @@ int main () {
   int n = 4;
 
   cin >> n;
-  
+  cin.get();
+
   int *lists = new int[n];
   for(int i=0; i<n; i++){ lists[i] = n-i; }
 
@@ -47,8 +48,8 @@ int main () {
   do {
     temp.clear();
     for(int i=0; i<n; i++){
-      cout<< lists[i]<<' ';
-      // temp.push_back(lists[i]);
+      // cout<< lists[i]<<' ';
+      temp.push_back(lists[i]);
     }
     if(is_conform(array,temp)){result++;}
     // cout<<endl;
