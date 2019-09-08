@@ -9,3 +9,6 @@ var str1 = "abc123def456";
 var str2 = str1.replace(/\d+/,"*");
 console.log(str2);
 
+var website="http://www.cctv.com.cn";
+var n = website.indexOf(".");
+console.log(n);
