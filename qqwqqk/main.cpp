@@ -22,7 +22,7 @@ int main () {
   cin.get();
 
   int *lists = new int[n];
-  for(int i=0; i<n; i++){ lists[i] = i+18; }
+  for(int i=0; i<n; i++){ lists[i] = i; }
 
   string str;
   getline(cin,str,'\n');
