@@ -6,57 +6,62 @@
 #include<algorithm>
 using namespace std;
 
-class point{
-public:
-  int x,y;
-  point(int _x=0, int _y=0){
-    x = _x;
-    y = _y;
-  }
-};
+void changeboard(vector<vector<char>>& board){
 
-vector<vector<char>> changeChess(vector<vector<char>> chess, int n = 4){
+  class point{
+  public:
+    int x,y;
+    point(int _x=0, int _y=0){ x = _x; y = _y; }
+  };
+
   queue<point> list;
-  for(int i=0; i<n; i++){
-    if(chess[0][i] == 'O'){ point item(0,i); list.push(item); }
-    if(chess[i][0] == 'O'){ point item(i,0); list.push(item); }
-    if(chess[n-1][i] == 'O'){ point item(n-1,i); list.push(item); }
-    if(chess[i][n-1] == 'O'){ point item(i,n-1); list.push(item); }
+  const int row = board.size();
+  if(row < 1) { return ; }
+  const int col = board[0].size();
+
+  for(int i=0; i<col; i++){
+    if(board[0][i] == 'O'){ point item(0,i); list.push(item); }
+    if(board[row-1][i] == 'O'){ point item(row-1,i); list.push(item); }
+  }
+  for(int i=0; i<row; i++){
+    if(board[i][0] == 'O'){ point item(i,0); list.push(item); }
+    if(board[i][col-1] == 'O'){ point item(i,col-1); list.push(item); }
   }
 
   while(!list.empty()){
     point item = list.front(); list.pop();
-    chess[item.x][item.y] = '#';
-    if(item.x > 0){ if(chess[item.x-1][item.y] == 'O'){ point val(item.x-1,item.y); list.push(val); }}
-    if(item.y > 0){ if(chess[item.x][item.y-1] == 'O'){ point val(item.x,item.y-1); list.push(val); }}
-    if(item.x < n-1){ if(chess[item.x+1][item.y] == 'O'){ point val(item.x+1,item.y); list.push(val); }}
-    if(item.y < n-1){ if(chess[item.x][item.y+1] == 'O'){ point val(item.x,item.y+1); list.push(val); }}
+    board[item.x][item.y] = '#';
+    if(item.x > 0){ if(board[item.x-1][item.y] == 'O'){ point val(item.x-1,item.y); list.push(val); }}
+    if(item.y > 0){ if(board[item.x][item.y-1] == 'O'){ point val(item.x,item.y-1); list.push(val); }}
+    if(item.x < row-1){ if(board[item.x+1][item.y] == 'O'){ point val(item.x+1,item.y); list.push(val); }}
+    if(item.y < col-1){ if(board[item.x][item.y+1] == 'O'){ point val(item.x,item.y+1); list.push(val); }}
   }
 
-  for(int i=0; i<n; i++){
-    for(int j=0; j<n; j++){
-      if(chess[i][j] != '#'){chess[i][j] = 'X';}
-      else {chess[i][j] = 'O';}
+  for(int i=0; i<row; i++){
+    for(int j=0; j<col; j++){
+      if(board[i][j] != '#'){board[i][j] = 'X';}
+      else {board[i][j] = 'O';}
     }
   }
-  return chess;
 };
 
 int main () {
-  const int n = 4;
-  vector<vector<char>> chess;
-  vector<char> row1 = {'X','X','X','X'};
-  vector<char> row2 = {'X','O','O','X'};
-  vector<char> row3 = {'X','X','O','X'};
-  vector<char> row4 = {'X','O','X','X'};
+  vector<vector<char>> board;
+  vector<char> row1 = {'X','X','X','X','X','X','X','X'};
+  vector<char> row2 = {'X','O','O','X','X','O','X','X'};
+  vector<char> row3 = {'X','X','O','X','X','X','O','O'};
+  vector<char> row4 = {'X','O','X','X','X','X','X','X'};
 
-  chess.push_back(row1); chess.push_back(row2); chess.push_back(row3); chess.push_back(row4);
+  board.push_back(row1); board.push_back(row2); board.push_back(row3); board.push_back(row4);
 
-  chess = changeChess(chess, n);
+  changeboard(board);
 
-  for(int i=0; i<n; i++){
-    for(int j=0; j<n; j++){
-      cout<< chess[i][j]<<' ';
+  const int row = board.size();
+  const int col = board[0].size();
+
+  for(int i=0; i<row; i++){
+    for(int j=0; j<col; j++){
+      cout<< board[i][j]<<' ';
     }
     cout<<endl;
   }
