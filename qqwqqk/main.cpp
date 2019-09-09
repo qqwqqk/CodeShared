@@ -6,26 +6,29 @@
 #include<algorithm>
 using namespace std;
 
+bool includ_four(int n){
+  while(n > 0){
+    if(n % 10 == 4){return true;}
+    n = n / 10;
+  }
+  return false;
+}
+
 int main () {
   int nums ;
 
   cin>>nums;
+  int count = 0;
 
-  vector<int> lists(nums);
-
-  int pos=0, curr=0, count = 0;
-  while(1){
-    if(lists[curr] == 0){ pos++; }
-    if(pos == 5){ 
-      count++; 
-      lists[curr]=count; 
-      pos = 0; 
+  for(int i=1; i<=nums; i++){
+    if(includ_four(i)){ 
+      // cout << i<<' ';
+      count++;
+      // if(count % 10 == 0){cout<<endl;}
     }
-    curr = curr + 1 == nums ? 0 : curr + 1;
-    if(lists[nums-1] != 0){ break; }
   }
 
-  cout << count<<endl;
+  cout << endl << nums + count <<endl;
 
   return 0;
 }
