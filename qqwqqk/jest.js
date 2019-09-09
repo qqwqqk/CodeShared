@@ -12,3 +12,9 @@ console.log(str2);
 var website="http://www.cctv.com.cn";
 var n = website.indexOf(".");
 console.log(n);
+
+var result =0;
+function test(result){
+  result =1;
+}
+test(2);
