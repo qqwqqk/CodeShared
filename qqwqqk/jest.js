@@ -18,3 +18,61 @@ function test(result){
   result =1;
 }
 test(2);
+
+var a={}, b={key:'b'}, c={key:'c'};
+a[b] = 'b';
+a[c] = 'c';
+console.log(a[b]);
+
+JSON.stringify({a:null});
+
+var url="https//www.bilibili.com/text.html";
+escape(url);
+encodeURI(url);
+encodeURIComponent(url);
+
+var a={x:1,y:2};
+var b =[1,2];
+var c = 1;
+var o={a:a,b:b,c:c};
+a.x=6;
+b[1]=7;
+c=8;
+console.log(o.a.x, o.b[1], o.c);
+
+var fn = function(a,b){reutrn +a+'b'}();
+console.log(typeof fn);
+
+['10','10','10','10','10'].map(parseInt);
+
+const first = ()=>(new Promise((resolve,reject)=>{
+  console.log(1);
+  let p= new Promise((resolve,reject)=>{
+    console.log(2);
+    setTimeout(()=>{
+      console.log(3);
+      resolve(4);
+    },0)
+    resolve(5);
+  });
+  resolve(6);
+  p.then((arg)=>{
+    console.log(arg);
+  });
+}));
+
+first().then((arg)=>{
+  console.log(arg);
+});
+
+console.log(7);
+
+
+var age =100;
+let years =6;
+if(age >12){
+  let age =10;
+  var years = age *3;
+}
+
+console.log("${years} years");
