@@ -7,82 +7,59 @@
 #include<algorithm>
 using namespace std;
 
-vector<string> replace(string str){
-  vector<string> list;
-  int i;
-  for(i = 0; i<str.size(); i++){
-    if(str[i] >= '0' && str[i]<='9'){ break; }
-  }
-  if(i == str.size()){ return list;}
-  if(str[i] == '2'){ 
-    str[i]='a'; list.push_back(str); 
-    str[i]='b'; list.push_back(str); 
-    str[i]='c'; list.push_back(str);
-  }
-  if(str[i] == '3'){ 
-    str[i]='d'; list.push_back(str); 
-    str[i]='e'; list.push_back(str); 
-    str[i]='f'; list.push_back(str);
-  }
-  if(str[i] == '4'){ 
-    str[i]='g'; list.push_back(str); 
-    str[i]='h'; list.push_back(str); 
-    str[i]='i'; list.push_back(str);
-  }
-  if(str[i] == '5'){ 
-    str[i]='j'; list.push_back(str); 
-    str[i]='k'; list.push_back(str); 
-    str[i]='l'; list.push_back(str);
-  }
-  if(str[i] == '6'){ 
-    str[i]='m'; list.push_back(str); 
-    str[i]='n'; list.push_back(str); 
-    str[i]='o'; list.push_back(str);
-  }
-  if(str[i] == '7'){ 
-    str[i]='p'; list.push_back(str); 
-    str[i]='q'; list.push_back(str); 
-    str[i]='r'; list.push_back(str);
-    str[i]='s'; list.push_back(str);
-  }
-  if(str[i] == '8'){ 
-    str[i]='t'; list.push_back(str); 
-    str[i]='u'; list.push_back(str); 
-    str[i]='v'; list.push_back(str);
-  }
-  if(str[i] == '9'){ 
-    str[i]='w'; list.push_back(str); 
-    str[i]='x'; list.push_back(str); 
-    str[i]='y'; list.push_back(str);
-    str[i]='z'; list.push_back(str);
-  }
-  return list;
-}
+   vector<string> letterCombinations(string digits) {
+        map<int,string> dictionary;
+        dictionary.insert(pair<int, string> (2,"abc"));
+        dictionary.insert(pair<int, string> (3,"def"));
+        dictionary.insert(pair<int, string> (4,"ghi"));
+        dictionary.insert(pair<int, string> (5,"jkl"));
+        dictionary.insert(pair<int, string> (6,"mno"));
+        dictionary.insert(pair<int, string> (7,"pqrs"));
+        dictionary.insert(pair<int, string> (8,"tuv"));
+        dictionary.insert(pair<int, string> (9,"wxyz"));
+
+        queue<string> queuelist;
+        queuelist.push(digits);
+        while(1){
+          int nums = queuelist.size();
+          string str = queuelist.front();
+          for(int i=0; i < str.size(); i++){
+            if(str[i] > '0' && str[i] <= '9'){
+              int key = str[i] - '0';
+              queuelist.pop();
+              string temp = dictionary[key];
+              for(int j=0; j<temp.size(); j++){
+                str[i] = temp[j];
+                queuelist.push(str);
+              }
+              break;
+            }
+          }
+
+          if(queuelist.size() <= nums){ break; }
+        }
+
+        vector<string> result;
+        while(!queuelist.empty()){
+          string item = queuelist.front();
+          if(item.size() > 0){ result.push_back(item); }
+          queuelist.pop();
+        }
+
+        return result;
+    }
 
 int main () {
   string str;
   getline(cin, str,'\n');
 
-  queue<string> lists;
-  lists.push(str);
-  while(1){
-    str = lists.front();
-    vector<string> cache = replace(str);
-    if(cache.size() > 0){
-      lists.pop();
-      for(int i=0; i<cache.size(); i++){
-        lists.push(cache[i]);
-      }
-    } else {
-      break;
-    }
+  vector<string> lists = letterCombinations(str);
+
+  for(int i=0; i<lists.size(); i++){
+    cout<< lists.front();
+    if(i+1<lists.size()){cout<<',';}
   }
 
-  while(!lists.empty()){
-    cout<< lists.front();
-    lists.pop();
-    if(!lists.empty()){cout<<',';}
-  }
 
   return 0;
 }
