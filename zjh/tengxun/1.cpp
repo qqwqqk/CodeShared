@@ -43,6 +43,7 @@ int main(){
   ss.clear();
   getline(cin,strTemp);
   int temp;
+  ss<<strTemp;
   while(ss>>temp){
     v.push_back(temp);
   }
