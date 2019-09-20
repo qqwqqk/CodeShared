@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <iomanip >
+#include <iomanip>
 using namespace std;
 
 bool is_29(int year){
@@ -34,11 +34,9 @@ int main() {
   cin>>y>>m>>d;
 
   while(1){
-    if(d<=getday(y,m)){ break; }
-    else{
-      d = d - getday(y,m);
-      m++;
-    }
+    if(m > 12){ m -= 12; y++;}
+    if(d > getday(y,m)){ d -= getday(y,m);  m++;}
+    if(m <=12 && d<=getday(y,m)){ break; }
   }
   
   y = y % 10000;
