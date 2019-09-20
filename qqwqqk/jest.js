@@ -93,3 +93,39 @@ console.log(bar.name);
 var bar3 = bar2 = bar;
 bar2.name = "foo2";
 console.log(bar3.name);
+
+let arr = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]];
+function inter(arr){
+  let cache = [];
+  let n=arr.length;
+  for(let k=0; k<n/2; k++){
+    let i=k;
+    let j=k;
+    for(; j<n-k; j++){cache.push(arr[i][j]);}
+    i++;j--;
+    for(; i<n-k; i++){cache.push(arr[i][j]);}
+    i--;j--;
+    for(; j>=k; j--){cache.push(arr[i][j]);}
+    j++;i--;
+    for(; i>k; i--){cache.push(arr[i][j]);}
+  }
+  for(let i=0; i<n*n; i++){
+    console.log(cache[i]);
+    if(i+1 != n*n){
+      console.log(',');
+    }
+  }
+}
+inter(arr);
+
+(arr)=>{
+  let n=arr.length;
+  for(let k=0; k<n; k++){
+    let i=k;
+    let j=k;
+    for(; j<n-k; j++){console.log(arr[i][j]);}
+    for(; i<n-k; i++){console.log(arr[i][j]);}
+    for(; j>=k; j--){console.log(arr[i][j]);}
+    for(; i>k; i--){console.log(arr[i][j]);}
+  }
+}([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
