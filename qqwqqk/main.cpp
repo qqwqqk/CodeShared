@@ -1,47 +1,46 @@
 #include <iostream>
 #include <vector>
+#include <set>
 #include <iomanip>
 using namespace std;
 
-bool is_29(int year){
-  if(year%172800 == 0){return true;}
-  if(year%3200 == 0){return false;}
-  if(year%400 == 0){return true;}
-  if(year%100 == 0){return false;}
-  if(year%4 == 0){return true;}
-  return false;
-}
-
-int getday(int y, int m){
-  if(m == 1){return 31;}
-  if(m == 2){if(is_29(y)){return 29;} else {return 28;}}
-  if(m == 3){return 31;}
-  if(m == 4){return 31;}
-  if(m == 5){return 31;}
-  if(m == 6){return 31;}
-  if(m == 7){return 31;}
-  if(m == 8){return 31;}
-  if(m == 9){return 31;}
-  if(m == 10){return 31;}
-  if(m == 11){return 31;}
-  if(m == 12){return 31;}
-  return 0;
-}
-
 int main() {
-  int y,d,m;
+  int N;
+  int n;
+  int num;
+  int count;
+  bool result = true;
+  set<int> list;
 
-  cin>>y>>m>>d;
+  cin >> N;
 
-  while(1){
-    if(m > 12){ m -= 12; y++;}
-    if(d > getday(y,m)){ d -= getday(y,m);  m++;}
-    if(m <=12 && d<=getday(y,m)){ break; }
+  for(int i=0; i<N; i++){
+    cin >> num;
+    if(num != 0){
+      if(list.count(num) > 0){ result = false; } 
+      else { list.insert(num); }
+    } else {
+      n++;
+    }
   }
-  
-  y = y % 10000;
 
-  cout<<setw(4)<<setfill('0')<<y<<'-'<<setw(2)<<setfill('0')<<m<<'-'<<setw(2)<<setfill('0')<<d<<endl;
+  set<int>::iterator iter = list.begin();
+  int font, next;
+  while(1){
+    font = *iter;
+    iter++;
+    if(iter == list.end()){ break; }
+    next = *iter;
+    if(next - font > 1){
+      count += next - font - 1;
+    }
+  }
+
+  if(count <= n && result){
+    cout << "YES+"<<n;
+  } else {
+    cout << "NO+"<<n;
+  }
 
   return 0;
 }
